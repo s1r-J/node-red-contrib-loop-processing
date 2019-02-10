@@ -1,0 +1,101 @@
+<script type="text/x-red" data-template-name="array-loop">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="array-loop.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]array-loop.label.name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-key"><i class="fa fa-key"></i> <span data-i18n="array-loop.label.key"></span></label>
+        <input type="text" id="node-input-key" data-i18n="[placeholder]array-loop.label.key">
+        <input type="hidden" id="node-input-keyType">
+    </div>
+    <div class="form-tips" style="margin-bottom: 5px;">
+        <span>
+            Tip: Key needs to be <code>null</code>, <code>undefined</code> or empty string
+            when a flow reached this node for the first time.
+        </span>
+    </div>
+    <div class="form-row">
+        <label for="node-input-array"><i class="fa fa-list"></i> <span data-i18n="array-loop.label.array"></span></label>
+        <input type="text" id="node-input-array" data-i18n="[placeholder]array-loop.label.array">
+        <input type="hidden" id="node-input-arrayType">
+    </div>
+    <div class="form-tips">
+        <span>
+            Note: If you manipulate key variable or array in the loop, Node-RED may fail due to an infinite loop.
+        </span>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="array-loop">
+    <p>Help flow looping until the end of the specified array.</p>
+    <h3>Inputs</h3>
+    <dl>
+        <dt>Key Variable</dt>
+        <dd>Define whether to use for key variable which stores an array index number. Set to msg property, flow context or global context. This property must be <code>null</code>, <code>undefined</code> or empty string when a flow reached this node for the first time. If not those, key variable is not set to 0.</dd>
+        <dt>Array</dt>
+        <dd></dd>
+    </dl>
+    <h3>Output</h3>
+    <p>Until reaching the end of array, flow is sent to the lower output port. After that flow is sent to the upper output port ("end array" label).</p>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type"></span></dt>
+        <dd>Until reaching the end of array, an element of the specified array is send to the lower output port.</dd>
+    </dl>
+    <h3>Details</h3>
+    <p>Please note if you select message property, flow or global context property for inputs, if manipulate these in the loop, Node-RED may fail due to an infinite loop.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('array-loop', {
+        category: 'function-loop',
+        defaults: {
+            name: {
+                value: ""
+            },
+            key: {
+                value: "",
+                required: true
+            },
+            keyType: {
+                value: "msg"
+            },
+            array: {
+                value: "",
+                required: true
+            },
+            arrayType: {
+                value: "msg"
+            }
+        },
+        color: "#e2d96e",
+        inputs: 1,
+        outputs: 2,
+        icon: "loop.png",
+        label: function() {
+            let expression;
+            if (this.array) {
+                expression = this.arrayType + '.' + this.array;
+            }
+
+            return this.name || expression || 'array-loop';
+        },
+        outputLabels: ["end array", ""],
+        paletteLabel: 'array-loop',
+        oneditprepare: function() {
+            if ($('#node-input-key').val() === '') {
+                let n = this;
+                $('#node-input-key').val('al' + n.id.replace(/[^a-zA-Z0-9]/g, ''));
+            }
+
+            $("#node-input-key").typedInput({
+                types: ["msg", "flow", "global"],
+                typeField: "node-input-key"
+            });
+            $("#node-input-array").typedInput({
+                types: ["msg", "flow", "global"],
+                typeField: "node-input-array"
+            });
+        }
+    });
+
+</script>

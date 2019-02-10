@@ -1,0 +1,147 @@
+<script type="text/x-red" data-template-name="counter-loop">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="counter-loop.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]counter-loop.label.name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-counter"><i class="fa fa-tag"></i> <span data-i18n="counter-loop.label.counter"></span></label>
+        <input type="text" id="node-input-counter" data-i18n="[placeholder]counter-loop.label.counter" style="width: 250px;">
+        <input type="hidden" id="node-input-counterType">
+    </div>
+    <div class="form-tips" style="margin-bottom: 5px;">
+        <span>
+            Tip: Counter variable needs to be <code>null</code>, <code>undefined</code> or empty string
+            when a flow reached this node for the first time.
+        </span>
+    </div>
+    <div class="form-row">
+        <label for="node-input-initial"><i class="fa fa-play"></i> <span data-i18n="counter-loop.label.initial"></span></label>
+        <input type="text" id="node-input-initial" data-i18n="[placeholder]counter-loop.label.initial" style="width: 250px;">
+        <input type="hidden" id="node-input-initialType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-termination"><i class="fa fa-stop"></i> <span data-i18n="counter-loop.label.termination"></span></label>
+        <select id="operator-select" style="width: 70px;">
+            <option value="lt"><</option>
+        </select>
+        <input type="hidden" id="node-input-operator">
+        <input type="text" id="node-input-termination" data-i18n="[placeholder]counter-loop.label.termination" style="width: 250px;">
+        <input type="hidden" id="node-input-terminationType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-increment"><i class="fa fa-signal"></i> <span data-i18n="counter-loop.label.increment"></span></label>
+        <input type="text" id="node-input-increment" data-i18n="[placeholder]counter-loop.label.increment" style="width: 250px;">
+        <input type="hidden" id="node-input-incrementType">
+    </div>
+    <div class="form-tips">
+        <span>
+            Note: If you select message property, flow or global context property for the above fields,
+            if manipulate these data in the loop, Node-RED may fail due to an infinite loop.
+        </span>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="counter-loop">
+    <p>Help flow looping the specified times.</p>
+    <h3>Inputs</h3>
+    <dl>
+        <dt>Counter Variable</dt>
+        <dd>Define whether to use for counter variable. Set to msg property, flow context or global context. This property must be <code>null</code>, <code>undefined</code> or empty string when a flow reached this node for the first time. If not those, counter variable is not initialized.</dd>
+        <dt>Initialization</dt>
+        <dd>To initialize the counter variable with this value, set to number, msg property, flow context or global context.</dd>
+        <dt>Termination</dt>
+        <dd>If comparing this value to the counter variable results in true, flow is sent to the lower output port. Set to number, msg property, flow context or global context.</dd>
+        <dt>Increment</dt>
+        <dd>The counter variable is incremented by this value. Set to number, msg property, flow context or global context.</dd>
+    </dl>
+    <h3>Output</h3>
+    <p>If the comparison result is true, flow is sent to the lower output port ("true" label). If false, flow is sent to the upper output port ("false" label)</p>
+    <h3>Details</h3>
+    <p>Please note if you select message property, flow or global context property for input fields, if manipulate these data in the loop, Node-RED may fail due to an infinite loop.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('counter-loop', {
+        category: 'function-loop',
+        defaults: {
+            name: {
+                value: ''
+            },
+            counter: {
+                value: '',
+                required: true
+            },
+            counterType: {
+                value: 'msg',
+                required: true
+            },
+            initial: {
+                value: 0,
+                required: true
+            },
+            initialType: {
+                value: 'num',
+            },
+            operator: {
+                value: 'lt'
+            },
+            termination: {
+                value: '',
+                required: true
+            },
+            terminationType: {
+                value: 'num'
+            },
+            increment: {
+                value: 1,
+                required: true
+            },
+            incrementType: {
+                value: 'num'
+            }
+        },
+        color: "#e2d96e",
+        inputs: 1,
+        outputs: 2,
+        icon: "loop.png",
+        label: function() {
+            let expression;
+            let relation = ' < ';
+            if (this.counter && this.termination && relation) {
+                let termType = this.terminationType === 'num' ? '' : this.terminationType + '.';
+                expression = this.counterType + '.' + this.counter + relation + termType + this.termination;
+            }
+
+            return this.name || expression || 'counter-loop';
+        },
+        outputLabels: ['false', 'true'],
+        paletteLabel: 'counter-loop',
+        oneditprepare: function() {
+            if ($('#node-input-counter').val() === '') {
+                let n = this;
+                $('#node-input-counter').val('il' + n.id.replace(/[^a-zA-Z0-9]/g, ''));
+            }
+            $('#node-input-counter').typedInput({
+                types: ['msg', 'flow', 'global'],
+                typeField: $('#node-input-counterType')
+            });
+            $('#node-input-initial').typedInput({
+                types: ['num', 'msg', 'flow', 'global'],
+                typeField: $('#node-input-initialType')
+            });
+            $('#node-input-termination').typedInput({
+                types: ['num', 'msg', 'flow', 'global'],
+                typeField: $('#node-input-terminationType')
+            });
+            $('#node-input-increment').typedInput({
+                types: ['num', 'msg', 'flow', 'global'],
+                typeField: $('#node-input-incrementType')
+            });
+            $('#operator-select').on('change', function() {
+                let v = $(this).val();
+                $('#node-input-operator').val(v);
+            });
+        }
+    });
+
+</script>

@@ -1,0 +1,12 @@
+{
+    "array-loop": {
+        "label": {
+            "name": "Name",
+            "key": "Key Variable",
+            "array": "Array"
+        },
+        "errors": {
+            "arraynotarray": "Array is not array:"
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "counter-loop": {
+        "label": {
+            "name": "Name",
+            "counter": "Counter Variable",
+            "initial": "Initialization",
+            "termination": "Termination",
+            "increment": "Increment"
+        },
+        "errors": {
+            "initialnotnumber": "Initialization field is not number:",
+            "terminationnotnumber": "Termination field is not number:",
+            "incrementnotnumber": "Increment field is not number:",
+            "invalidoperator": "Operator is invalid"
+        }
+    }
+}
