@@ -4,7 +4,8 @@
     "description": "Node-RED nodes to help flow looping.",
     "main": "node.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "eslint ./array-loop.js ./counter-loop.js --fix"
     },
     "node-red": {
         "nodes": {
@@ -13,6 +14,10 @@
         }
     },
     "dependencies": {},
+    "devDependencies": {
+        "eslint": "^5.13.0",
+        "eslint-plugin-node": "^8.0.1"
+    },
     "keywords": [
         "node-red",
         "loop",
