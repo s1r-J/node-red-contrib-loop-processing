@@ -23,7 +23,7 @@ Set the following inputs:
 If the conditions is true, a flow is sent to the lower output port ('true' outputLabel).  
 If false, the flow is sent to the upper output port ('false' outputLabel). 
 
-![array-loop](examples/arrayloop-example.png)
+![array-loop](./examples/arrayloop-example.png)
 
 ### array-lopp
 
@@ -37,7 +37,7 @@ Set the following inputs:
 If the conditions is true, a flow is sent to the lower output port.  
 If false, the flow is sent to the upper output port ('end loop' outputLabel). 
 
-![counter-loop](examples/counterloop-example.png)
+![counter-loop](./examples/counterloop-example.png)
 
 ## Usage
 
