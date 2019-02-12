@@ -45,6 +45,8 @@ Example flow is in examples/exmple.json.
 
 ## Install
 
+[![NPM](https://nodei.co/npm/node-red-contrib-loop-processing.png)](https://nodei.co/npm/node-red-contrib-loop-processing/)
+
 ## Licence
 
 [Apache-2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
