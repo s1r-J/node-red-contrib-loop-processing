@@ -25,7 +25,7 @@ If false, the flow is sent to the upper output port ('false' outputLabel).
 
 ![array-loop](./examples/arrayloop-example.png)
 
-### array-lopp
+### array-loop
 
 Until the end of an array, a flow loops. This node is similar to forEach or for-of,
 but this node cannot handle an associated array.
@@ -42,6 +42,8 @@ If false, the flow is sent to the upper output port ('end loop' outputLabel).
 ## Usage
 
 Example flow is in examples/exmple.json.
+
+Drag & drop in your Node-RED editor.
 
 ## Install
 
