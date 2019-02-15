@@ -5,10 +5,11 @@ Node-RED nodes to help a flow looping.
 
 ## Description
 
-This module have 2 nodes.
+This module have 3 nodes.
 
 - [counter-loop](#counter-loop)
 - [array-loop](#array-loop)
+- [while-loop](#while-loop)
 
 ### counter-loop
 
@@ -38,6 +39,17 @@ If the conditions is true, a flow is sent to the lower output port.
 If false, the flow is sent to the upper output port ('end loop' outputLabel). 
 
 ![counter-loop](./examples/counterloop-example.png)
+
+### while-loop
+
+*since 0.2.0*
+
+Using a condition expression, a flow loops like a while loop.
+
+If the expression is true, a flow is sent to the lower output port ('true' outputLabel).  
+If false, the flow is sent to the upper output port ('false' outputLabel). 
+
+![while-loop](./examples/whileloop-example.png)
 
 ## Usage
 
