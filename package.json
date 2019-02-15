@@ -1,19 +1,23 @@
 {
     "name": "node-red-contrib-loop-processing",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "description": "Node-RED nodes to help flow looping.",
     "main": "node.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "lint": "eslint ./array-loop.js ./counter-loop.js --fix"
+        "lint": "eslint ./array-loop.js ./counter-loop.js ./while-loop.js --fix"
     },
     "node-red": {
         "nodes": {
             "index-loop": "counter-loop.js",
-            "array-loop": "array-loop.js"
+            "array-loop": "array-loop.js",
+            "while-loop": "while-loop.js"
         }
     },
-    "dependencies": {},
+    "dependencies": {
+        "util": "^0.11.1",
+        "vm": "^0.1.0"
+    },
     "devDependencies": {
         "eslint": "^5.13.0",
         "eslint-plugin-node": "^8.0.1"

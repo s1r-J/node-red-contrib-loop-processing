@@ -1,0 +1,53 @@
+<script type="text/x-red" data-template-name="while-loop">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="while-loop.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]while-loop.label.name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-condi"><i class="fa fa-question"></i> <span data-i18n="while-loop.label.condi"></span></label>
+        <input type="text" id="node-input-condi" data-i18n="[placeholder]while-loop.label.condi" autofocus>
+    </div>
+    <div class="form-tips">
+        <span>
+            Note: Pay attention to the condition expression, otherwise Node-RED may fail due to an infinite loop.
+        </span>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="while-loop">
+    <p>Help flow looping if the condition is true.</p>
+    <h3>Inputs</h3>
+    <dl>
+        <dt>Condition Expression</dt>
+        <dd>If this condition expression results in true, the flow loops. In this expression, you can use msg, flow context and global context.</dd>
+    </dl>
+    <h3>Outputs</h3>
+    <p>If the condition is true, flow is sent to the lower output port ("true" label). If false, flow is sent to the upper output port ("false" label).</p>
+    <h3>Details</h3>
+    <p>Please pay attention to the condition expression, otherwise Node-RED may fail due to an infinite loop.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('while-loop', {
+        category: 'function-loop',
+        defaults: {
+            name: {
+                value: ''
+            },
+            condi: {
+                value: '',
+                required: true
+            }
+        },
+        color: '#e2d96e',
+        inputs: 1,
+        outputs: 2,
+        icon: 'loop.png',
+        label: function() {
+            return this.name || this.condi || 'while-loop';
+        },
+        outputLabels: ['false', 'true'],
+        paletteLabel: 'while-loop',
+        oneditprepare: function() {}
+    });
+</script>
