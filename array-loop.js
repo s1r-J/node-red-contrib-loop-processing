@@ -28,6 +28,8 @@ module.exports = function (RED) {
         node.keyType = n.keyType;
         node.array = n.array;
         node.arrayType = n.arrayType;
+        node.reset = n.reset;
+        node.resetValue = n.resetValue;
 
         this.on('input', function (msg) {
             let key = RED.util.evaluateNodeProperty(node.key, node.keyType, node, msg);
@@ -60,6 +62,23 @@ module.exports = function (RED) {
                 node.send([null, msg]);
             } else {
                 // exit loop
+                if (node.reset) {
+                    let resetValue = null;
+                    switch (node.resetValue) {
+                        case 'value-null':
+                            resetValue = null;
+                            break;
+                        case 'value-undefined':
+                            resetValue = undefined;
+                            break;
+                        case 'value-empty':
+                            resetValue = '';
+                            break;
+                        default:
+                            // not come here
+                    }
+                    setProperty(node, msg, node.key, node.keyType, resetValue);
+                }
                 node.status({
                     fill: 'grey',
                     shape: 'ring',

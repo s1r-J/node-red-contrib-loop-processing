@@ -8,6 +8,20 @@
         <input type="text" id="node-input-key" data-i18n="[placeholder]array-loop.label.key">
         <input type="hidden" id="node-input-keyType">
     </div>
+    <div>
+        <label for="node-input-reset">
+        <input type="checkbox" id="node-input-reset" style="display:inline-block; width:15px; vertical-align:baseline;">
+        <span>
+            Set key variable to
+            <select id="resetValue-select" style="width: 120px;">
+                <option value="value-null">null</option>
+                <option value="value-undefined">undefined</option>
+                <option value="value-empty">empty string</option>
+            </select>
+            when exiting the loop.
+            <input type="hidden" id="node-input-resetValue">
+        </span>
+    </div>
     <div class="form-tips" style="margin-bottom: 5px;">
         <span>
             Tip: Key needs to be <code>null</code>, <code>undefined</code> or empty string
@@ -42,6 +56,7 @@
         <dd>Until reaching the end of array, an element of the specified array is send to the lower output port.</dd>
     </dl>
     <h3>Details</h3>
+    <p>When exiting the loop, counter variable can reset by setting to <code>null</code>, <code>undefined</code> or empty string. This is useful for multi-loop.</p>
     <p>Please note if you select message property, flow or global context property for inputs, if manipulate these in the loop, Node-RED may fail due to an infinite loop.</p>
 </script>
 
@@ -58,6 +73,13 @@
             },
             keyType: {
                 value: "msg"
+            },
+            reset: {
+                value: false
+            },
+            resetValue: {
+                value: 'value-null',
+                required: true
             },
             array: {
                 value: "",
@@ -86,6 +108,7 @@
                 let n = this;
                 $('#node-input-key').val('al' + n.id.replace(/[^a-zA-Z0-9]/g, ''));
             }
+            $('#resetValue-select').val(this.resetValue);
 
             $("#node-input-key").typedInput({
                 types: ["msg", "flow", "global"],
@@ -94,6 +117,11 @@
             $("#node-input-array").typedInput({
                 types: ["msg", "flow", "global"],
                 typeField: "node-input-array"
+            });
+
+            $('#resetValue-select').on('change', function() {
+                let v = $(this).val();
+                $('#node-input-resetValue').val(v);
             });
         }
     });
