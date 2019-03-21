@@ -8,6 +8,20 @@
         <input type="text" id="node-input-counter" data-i18n="[placeholder]counter-loop.label.counter" style="width: 250px;">
         <input type="hidden" id="node-input-counterType">
     </div>
+    <div>
+        <label for="node-input-reset">
+        <input type="checkbox" id="node-input-reset" style="display:inline-block; width:15px; vertical-align:baseline;">
+        <span>
+            Set counter variable to
+            <select id="resetValue-select" style="width: 120px;">
+                <option value="value-null">null</option>
+                <option value="value-undefined">undefined</option>
+                <option value="value-empty">empty string</option>
+            </select>
+            when exiting the loop.
+            <input type="hidden" id="node-input-resetValue">
+        </span>
+    </div>
     <div class="form-tips" style="margin-bottom: 5px;">
         <span>
             Tip: Counter variable needs to be <code>null</code>, <code>undefined</code> or empty string
@@ -57,6 +71,7 @@
     <h3>Output</h3>
     <p>If the comparison result is true, flow is sent to the lower output port ("true" label). If false, flow is sent to the upper output port ("false" label).</p>
     <h3>Details</h3>
+    <p>When exiting the loop, counter variable can reset by setting to <code>null</code>, <code>undefined</code> or empty string. This is useful for multi-loop.</p>
     <p>Please note if you select message property, flow or global context property for input fields, if manipulate these data in the loop, Node-RED may fail due to an infinite loop.</p>
 </script>
 
@@ -73,6 +88,13 @@
             },
             counterType: {
                 value: 'msg',
+                required: true
+            },
+            reset: {
+                value: false
+            },
+            resetValue: {
+                value: 'value-null',
                 required: true
             },
             initial: {
@@ -121,6 +143,8 @@
                 let n = this;
                 $('#node-input-counter').val('il' + n.id.replace(/[^a-zA-Z0-9]/g, ''));
             }
+            $('#resetValue-select').val(this.resetValue);
+
             $('#node-input-counter').typedInput({
                 types: ['msg', 'flow', 'global'],
                 typeField: $('#node-input-counterType')
@@ -137,9 +161,14 @@
                 types: ['num', 'msg', 'flow', 'global'],
                 typeField: $('#node-input-incrementType')
             });
+
             $('#operator-select').on('change', function() {
                 let v = $(this).val();
                 $('#node-input-operator').val(v);
+            });
+            $('#resetValue-select').on('change', function() {
+                let v = $(this).val();
+                $('#node-input-resetValue').val(v);
             });
         }
     });

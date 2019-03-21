@@ -33,6 +33,8 @@ module.exports = function (RED) {
         node.terminationType = n.terminationType;
         node.increment = n.increment;
         node.incrementType = n.incrementType;
+        node.reset = n.reset;
+        node.resetValue = n.resetValue;
 
         this.on('input', function (msg) {
             let counter = RED.util.evaluateNodeProperty(node.counter, node.counterType, node, msg);
@@ -83,6 +85,23 @@ module.exports = function (RED) {
                 node.send([null, msg]);
             } else {
                 // exit loop
+                if (node.reset) {
+                    let resetValue = null;
+                    switch (node.resetValue) {
+                        case 'value-null':
+                            resetValue = null;
+                            break;
+                        case 'value-undefined':
+                            resetValue = undefined;
+                            break;
+                        case 'value-empty':
+                            resetValue = '';
+                            break;
+                        default:
+                            // not come here
+                    }
+                    setProperty(node, msg, node.counter, node.counterType, resetValue);
+                }
                 node.status({
                     fill: 'grey',
                     shape: 'ring',
