@@ -5,7 +5,7 @@ Node-RED nodes to help a flow looping.
 
 ## Description
 
-This module have 3 nodes.
+This module has 3 nodes.
 
 - [counter-loop](#counter-loop)
 - [array-loop](#array-loop)
