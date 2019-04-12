@@ -1,6 +1,11 @@
 Changelog
 ==
 
+## [0.3.1](https://github.com/s1r-J/node-red-contrib-loop-processing/tree/0.3.0) (2019/04/12)
+[Full Changelog](https://github.com/s1r-J/node-red-contrib-loop-processing/compare/0.3.0...0.3.1)
+
+- Fix
+
 ## [0.3.0](https://github.com/s1r-J/node-red-contrib-loop-processing/tree/0.3.0) (2019/04/12)
 [Full Changelog](https://github.com/s1r-J/node-red-contrib-loop-processing/compare/0.2.0...0.3.0)
 
@@ -8,7 +13,7 @@ Changelog
 - Add feature of resetting key variable in array-loop
 - Update example flow
 - Update description of the usage of flow and global context in while-loop
-- Fix typo in README.md
+- Fix typo in README.md #3
 
 ## [0.2.0](https://github.com/s1r-J/node-red-contrib-loop-processing/tree/0.2.0) (2019/02/15)
 [Full Changelog](https://github.com/s1r-J/node-red-contrib-loop-processing/compare/0.1.2...0.2.0)
