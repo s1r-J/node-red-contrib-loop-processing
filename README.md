@@ -65,6 +65,10 @@ Drag & drop in your Node-RED editor.
 
 [![NPM](https://nodei.co/npm/node-red-contrib-loop-processing.png)](https://nodei.co/npm/node-red-contrib-loop-processing/)
 
+## Changelog
+
+[Changelog](https://github.com/s1r-J/node-red-contrib-loop-processing/blob/master/CHANGELOG.md)
+
 ## Licence
 
 [Apache-2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
