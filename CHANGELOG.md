@@ -1,7 +1,7 @@
 Changelog
 ==
 
-## [0.3.0](https://github.com/s1r-J/node-red-contrib-loop-processing/tree/0.3.0) (2019/MM/dd)
+## [0.3.0](https://github.com/s1r-J/node-red-contrib-loop-processing/tree/0.3.0) (2019/04/12)
 [Full Changelog](https://github.com/s1r-J/node-red-contrib-loop-processing/compare/0.2.0...0.3.0)
 
 - Add feature of resetting counter variable in counter-loop
