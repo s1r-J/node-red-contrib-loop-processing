@@ -112,11 +112,11 @@
 
             $("#node-input-key").typedInput({
                 types: ["msg", "flow", "global"],
-                typeField: "node-input-key"
+                typeField: $('#node-input-keyType')
             });
             $("#node-input-array").typedInput({
                 types: ["msg", "flow", "global"],
-                typeField: "node-input-array"
+                typeField: $('#node-input-arrayType')
             });
 
             $('#resetValue-select').on('change', function() {
