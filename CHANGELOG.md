@@ -7,6 +7,7 @@ Changelog
 - Add feature of resetting counter variable in counter-loop
 - Add feature of resetting key variable in array-loop
 - Update example flow
+- Update description of the usage of flow and global context in while-loop
 - Fix typo in README.md
 
 ## [0.2.0](https://github.com/s1r-J/node-red-contrib-loop-processing/tree/0.2.0) (2019/02/15)
