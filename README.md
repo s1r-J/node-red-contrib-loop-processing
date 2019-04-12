@@ -5,7 +5,7 @@ Node-RED nodes to help a flow looping.
 
 ## Description
 
-This module have 3 nodes.
+This module has 3 nodes.
 
 - [counter-loop](#counter-loop)
 - [array-loop](#array-loop)
@@ -24,7 +24,9 @@ Set the following inputs:
 If the conditions is true, a flow is sent to the lower output port ('true' outputLabel).  
 If false, the flow is sent to the upper output port ('false' outputLabel). 
 
-![array-loop](./examples/arrayloop-example.png)
+When the flow exits the loop, the counter variable can reset by setting to `null`, `undefined` or empty string. This is useful for creating a multi-loop.
+
+![counter-loop](./examples/counterloop-example.png)
 
 ### array-loop
 
@@ -38,7 +40,9 @@ Set the following inputs:
 If the conditions is true, a flow is sent to the lower output port.  
 If false, the flow is sent to the upper output port ('end loop' outputLabel). 
 
-![counter-loop](./examples/counterloop-example.png)
+When the flow exits the loop, the key variable can reset by setting to `null`, `undefined` or empty string. This is useful for creating a multi-loop.
+
+![array-loop](./examples/arrayloop-example.png)
 
 ### while-loop
 
