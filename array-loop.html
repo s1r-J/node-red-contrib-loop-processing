@@ -69,7 +69,10 @@
             },
             key: {
                 value: "",
-                required: true
+                required: true,
+                validate: function () {
+                    return !(this.keyType == 'msg' && this.key == 'payload');
+                }
             },
             keyType: {
                 value: "msg"
@@ -83,7 +86,10 @@
             },
             array: {
                 value: "",
-                required: true
+                required: true,
+                validate: function () {
+                    return !(this.arrayType == 'msg' && this.array == 'payload');
+                }
             },
             arrayType: {
                 value: "msg"
