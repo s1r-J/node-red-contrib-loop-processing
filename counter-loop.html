@@ -37,6 +37,9 @@
         <label for="node-input-termination"><i class="fa fa-stop"></i> <span data-i18n="counter-loop.label.termination"></span></label>
         <select id="operator-select" style="width: 70px;">
             <option value="lt"><</option>
+            <option value="lte"><=</option>
+            <option value="gt">></option>
+            <option value="gte">>=</option>
         </select>
         <input type="hidden" id="node-input-operator">
         <input type="text" id="node-input-termination" data-i18n="[placeholder]counter-loop.label.termination" style="width: 250px;">
@@ -105,7 +108,8 @@
                 value: 'num',
             },
             operator: {
-                value: 'lt'
+                value: 'lt',
+                required: true
             },
             termination: {
                 value: '',
@@ -127,9 +131,26 @@
         outputs: 2,
         icon: "loop.png",
         label: function() {
+            let operatorExpression;
+            switch (this.operator) {
+                case 'lt':
+                    operatorExpression = '<';
+                    break;
+                case 'lte':
+                    operatorExpression = '<=';
+                    break;
+                case 'gt':
+                    operatorExpression = '>';
+                    break;
+                case 'gte':
+                    operatorExpression = '>=';
+                    break;
+                default:
+                    RED.notify(this._('counter-loop.errors.invalidoperator'));
+            }
+            let relation = ` ${operatorExpression} `;
             let expression;
-            let relation = ' < ';
-            if (this.counter && this.termination && relation) {
+            if (this.counter && this.termination) {
                 let termType = this.terminationType === 'num' ? '' : this.terminationType + '.';
                 expression = this.counterType + '.' + this.counter + relation + termType + this.termination;
             }
@@ -143,6 +164,7 @@
                 let n = this;
                 $('#node-input-counter').val('il' + n.id.replace(/[^a-zA-Z0-9]/g, ''));
             }
+            $('#operator-select').val(this.operator);
             $('#resetValue-select').val(this.resetValue);
 
             $('#node-input-counter').typedInput({
