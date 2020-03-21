@@ -1,6 +1,15 @@
 Changelog
 ==
 
+## [0.4.0](https://github.com/s1r-J/node-red-contrib-loop-processing/tree/0.4.0) (2020/03/21)
+[Full Changelog](https://github.com/s1r-J/node-red-contrib-loop-processing/compare/0.3.1...0.4.0)
+
+- Add operators to counter-loop
+    - less than or equal
+    - greater than
+    - greater than or equal
+    - equal
+
 ## [0.3.1](https://github.com/s1r-J/node-red-contrib-loop-processing/tree/0.3.0) (2019/04/12)
 [Full Changelog](https://github.com/s1r-J/node-red-contrib-loop-processing/compare/0.3.0...0.3.1)
 
