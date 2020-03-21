@@ -81,6 +81,9 @@ module.exports = function (RED) {
                 case 'gte':
                     isLoop = counter >= termination;
                     break;
+                case 'eq':
+                    isLoop = counter == termination;
+                    break;
                 default:
                     sendErrorMessage(node, RED._('counter-loop.errors.invalidoperator'));
             }
