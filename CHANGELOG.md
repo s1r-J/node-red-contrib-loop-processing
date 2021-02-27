@@ -5,7 +5,8 @@ Changelog
 [Full Changelog](https://github.com/s1r-J/node-red-contrib-loop-processing/compare/0.5.0...0.5.1)
 
 - Remove template literal #17
-## [0.5.0](https://github.com/s1r-J/node-red-contrib-loop-processing/tree/0.4.0) (2021/02/27)
+
+## [0.5.0](https://github.com/s1r-J/node-red-contrib-loop-processing/tree/0.5.0) (2021/02/27)
 [Full Changelog](https://github.com/s1r-J/node-red-contrib-loop-processing/compare/0.4.0...0.5.0)
 
 - Add loop time limitation to while-loop
