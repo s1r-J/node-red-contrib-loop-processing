@@ -1,6 +1,14 @@
 Changelog
 ==
 
+## [0.5.0](https://github.com/s1r-J/node-red-contrib-loop-processing/tree/0.4.0) (2021/02/27)
+[Full Changelog](https://github.com/s1r-J/node-red-contrib-loop-processing/compare/0.4.0...0.5.0)
+
+- Add loop time limitation to while-loop
+- Update docs
+    - how to break out of loop
+- Fix typo in README
+
 ## [0.4.0](https://github.com/s1r-J/node-red-contrib-loop-processing/tree/0.4.0) (2020/03/21)
 [Full Changelog](https://github.com/s1r-J/node-red-contrib-loop-processing/compare/0.3.1...0.4.0)
 

@@ -57,7 +57,7 @@ If false, the flow is sent to the upper output port ('false' outputLabel).
 
 ## Usage
 
-Example flow is in examples/exmple.json.
+Example flow is in examples/example.json.
 
 Drag & drop in your Node-RED editor.
 

@@ -2,11 +2,15 @@
     "while-loop": {
         "label": {
             "name": "Name",
-            "condi": "Condition Expression"
+            "condi": "Condition Expression",
+            "time": "Time Variable"
         },
         "errors": {
             "inputListener": "Cannot add listener to 'input' event within while-loop",
             "non-message-returned": "while-loop tried to send a message of type __type__"
+        },
+        "messages": {
+            "overLimitTime": "Loop time exceeded the specified value: __limit__"
         }
     }
 }

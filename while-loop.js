@@ -39,10 +39,24 @@ module.exports = function (RED) {
         }
     }
 
+    function setProperty(node, msg, name, type, value) {
+        if (type === 'msg') {
+            msg[name] = value;
+        } else if (type === 'flow') {
+            node.context().flow.set(name, value);
+        } else if (type === 'global') {
+            node.context().global.set(name, value);
+        }
+    }
+
     function WhileLoopNode(n) {
         RED.nodes.createNode(this, n);
         var node = this;
         node.condi = n.condi;
+        node.time = n.time;
+        node.timeType = n.timeType;
+        node.limit = n.limit;
+        node.limitTime = n.limitTime;
 
         var sandbox = {
             isLoop: false,
@@ -126,26 +140,51 @@ module.exports = function (RED) {
         };
 
         this.on('input', function (msg) {
-            sandbox.msg = msg;
-            vm.createContext(sandbox);
-            vm.runInContext('isLoop = (' + node.condi + ');', sandbox);
+            let isLoop = true;
+            if (node.limit) {
+                let time = RED.util.evaluateNodeProperty(node.time, node.timeType, node, msg);
+                if (time === void 0 || time === null || time === '') {
+                    // initialize
+                    time = 0;
+                } else {
+                    time++;
+                }
+                setProperty(node, msg, node.time, node.timeType, time);
 
-            if (sandbox.isLoop) {
-                // run in loop
-                node.status({
-                    fill: 'blue',
-                    shape: 'dot',
-                    text: 'loop'
-                });
-                node.send([null, msg]);
-            } else {
-                // exit loop
-                node.status({
-                    fill: 'grey',
-                    shape: 'ring',
-                    text: 'exit loop'
-                });
-                node.send(msg);
+                isLoop = time < node.limitTime;
+                if (!isLoop) {
+                    // exit loop
+                    node.status({
+                        fill: 'grey',
+                        shape: 'ring',
+                        text: RED._('while-loop.messages.overLimitTime', {'limit': node.limitTime})
+                    });
+                    node.send(msg);
+                }
+            }
+
+            if (isLoop) {
+                sandbox.msg = msg;
+                vm.createContext(sandbox);
+                vm.runInContext('isLoop = (' + node.condi + ');', sandbox);
+    
+                if (sandbox.isLoop) {
+                    // run in loop
+                    node.status({
+                        fill: 'blue',
+                        shape: 'dot',
+                        text: 'loop'
+                    });
+                    node.send([null, msg]);
+                } else {
+                    // exit loop
+                    node.status({
+                        fill: 'grey',
+                        shape: 'ring',
+                        text: 'exit loop'
+                    });
+                    node.send(msg);
+                }    
             }
         });
 

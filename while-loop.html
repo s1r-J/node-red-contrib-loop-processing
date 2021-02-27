@@ -12,14 +12,31 @@
             Note: Pay attention to the condition expression, otherwise Node-RED may fail due to an infinite loop.
         </span>
     </div>
+    <div>
+        <label for="node-input-limit">
+        <input type="checkbox" id="node-input-limit" style="display:inline-block; width:15px; vertical-align:baseline;">
+        <span>
+            Break out of the loop after looping more than
+            <input type="text" id="node-input-limitTime" placeholder="10000" style="width:50px; height:28px;">
+            times.
+        </span>
+    </div>
+    <div class="form-row">
+        <label for="node-input-time"><i class="fa fa-tag"></i> <span data-i18n="while-loop.label.time"></span></label>
+        <input type="text" id="node-input-time" data-i18n="[placeholder]while-loop.label.time">
+        <input type="hidden" id="node-input-timeType">
+    </div>
 </script>
 
 <script type="text/x-red" data-help-name="while-loop">
     <p>Help flow looping if the condition is true.</p>
+    <p>If condition expression results in false or loop time exceeds the specified value, flow breaks out of loop and message is sent from the upper output port.</p>
     <h3>Inputs</h3>
     <dl>
         <dt>Condition Expression</dt>
         <dd>If this condition expression results in true, the flow loops. In this expression, you can use msg, flow context and global context.</dd>
+        <dt>Time Variable</dt>
+        <dd>This variable stores loop times. If you check, flow exits loop when this variable exceeds the specified value.</dd>
     </dl>
     <h3>Outputs</h3>
     <p>If the condition is true, flow is sent to the lower output port ("true" label). If false, flow is sent to the upper output port ("false" label).</p>
@@ -38,6 +55,24 @@
             condi: {
                 value: '',
                 required: true
+            },
+            limit: {
+                value: false
+            },
+            limitTime: {
+                value: 10000,
+            },
+            time: {
+                value: '',
+                required: function () {
+                    return this.limit;
+                },
+                validate: function () {
+                    return !(this.timeType == 'msg' && this.time == 'payload');
+                }
+            },
+            timeType: {
+                value: 'msg'
             }
         },
         color: '#e2d96e',
@@ -49,6 +84,16 @@
         },
         outputLabels: ['false', 'true'],
         paletteLabel: 'while-loop',
-        oneditprepare: function() {}
+        oneditprepare: function() {
+            if ($('#node-input-time').val() === '') {
+                let n = this;
+                $('#node-input-time').val('wl' + n.id.replace(/[^a-zA-Z0-9]/g, ''));
+            }
+
+            $('#node-input-time').typedInput({
+                types: ['msg', 'flow', 'global'],
+                typeField: $('#node-input-timeType')
+            });
+        }
     });
 </script>
