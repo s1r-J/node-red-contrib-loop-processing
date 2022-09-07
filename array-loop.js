@@ -32,9 +32,9 @@ module.exports = function (RED) {
         node.resetValue = n.resetValue;
 
         this.on('input', function (msg) {
-            let key = RED.util.evaluateNodeProperty(node.key, node.keyType, node, msg);
-            let array = RED.util.evaluateNodeProperty(node.array, node.arrayType, node, msg);
-
+            let key = msg[node.key]
+            let array = msg[node.array]
+            
             if (!Array.isArray(array)) {
                 let text = RED._('array-loop.errors.arraynotarray') + array;
                 sendErrorMessage(node, text);
